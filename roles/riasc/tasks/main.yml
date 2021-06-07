@@ -1,0 +1,17 @@
+
+---
+- name: Deploy RIasC Helm chart
+  k8s:
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    state: present
+    definition:
+      apiVersion: helm.cattle.io/v1
+      kind: HelmChart
+      metadata:
+        name: riasc
+        namespace: kube-system
+      spec:
+        chart: riasc/riasc
+        targetNamespace: riasc
+        version: "0.1.0"
+        repo: https://charts.riasc.fein-aachen.org
