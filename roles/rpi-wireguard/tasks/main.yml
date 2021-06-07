@@ -1,0 +1,36 @@
+- name: Update packages
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Install build-time depenencies for Wireguard
+  apt:
+    name: raspberrypi-kernel-headers
+    state: latest
+
+- name: Add keys for backports repo
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 04EE7237B7D453EC
+
+- name: Add Debian backports repo
+  apt_repository:
+    repo: deb http://deb.debian.org/debian buster-backports main
+    state: present
+    filename: backports.list
+    update_cache: true
+
+- name: Install Wireguard DKMS
+  apt:
+    name: wireguard
+    state: latest
+    default_release: buster-backports
+
+- name: Load Wireguard module
+  modprobe:
+    name: wireguard
+
+- name: Load Wireguard module during system startup
+  lineinfile:
+    path: /etc/modules
+    line: wireguard
