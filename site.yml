@@ -1,5 +1,25 @@
 ---
 
+- hosts: all
+  tasks:
+  - name: Add SSH keys
+    authorized_key:
+      user: "{{ ansible_user }}"
+      state: present
+      key: "{{ item }}"
+    loop: "{{ ssh_keys }}"
+
+  - name: Disable password login
+    lineinfile: 
+      dest: /etc/ssh/sshd_config 
+      regexp: '^(#\s*)?PasswordAuthentication '
+      line: 'PasswordAuthentication no'
+
+  - name: Restart SSH daemon
+    service:
+      name: sshd
+      state: restart
+
 - hosts: k3s_cluster
   gather_facts: yes
   become: yes
@@ -7,6 +27,8 @@
     - role: prereq
     - role: download
     - role: rpi
+    - role: rpi-wireguard
+    - role: rpi-gps-sync
 
 - hosts: master
   become: yes
@@ -17,3 +39,8 @@
   become: yes
   roles:
     - role: k3s/node
+
+# - hosts: master
+#   become: yes
+#   roles:
+#   - role: riasc
