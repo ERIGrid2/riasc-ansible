@@ -1,0 +1,24 @@
+- name: Enable PPS-GPIO device tree overlay
+  lineinfile:
+    path: /boot/config.txt
+    line: dtoverlay=pps-gpio,gpiopin={{ pps_pin }}
+
+- name: Disable Bluetooth on Raspberry Pi 4
+  lineinfile:
+    path: /boot/config.txt
+    line: dtoverlay=disable-bt
+
+- name: Disable console on UART0
+  replace:
+    path: /boot/cmdline
+    regex: 'console=(serial0|ttyAMA0|ttyS0)(,\d+)?'
+    replace: ''
+
+- name: Disable HCI UART
+  systemd:
+    name: hciuart
+    state: stopped
+    enabled: false
+
+- name: Reboot
+  reboot: {}
