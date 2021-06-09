@@ -1,22 +1,3 @@
-- name: Enable PPS-GPIO device tree overlay
-  lineinfile:
-    path: /boot/config.txt
-    line: dtoverlay=pps-gpio,gpiopin={{ rpi_gps_sync_pps_pin }}
-  notify: reboot
-
-- name: Disable Bluetooth on Raspberry Pi 4
-  lineinfile:
-    path: /boot/config.txt
-    line: dtoverlay=disable-bt
-  notify: reboot
-
-- name: Disable console on UART0
-  replace:
-    path: /boot/cmdline.txt
-    regexp: 'console=(serial0|ttyAMA0|ttyS0)(,\d+)?'
-    replace: ''
-  notify: reboot
-
 - name: Disable HCI UART
   systemd:
     name: hciuart
@@ -28,3 +9,33 @@
     name: systemd-timesyncd
     state: stopped
     enabled: false
+
+- name: Enable PPS-GPIO device tree overlay
+  lineinfile:
+    path: /boot/config.txt
+    line: dtoverlay=pps-gpio,gpiopin={{ rpi_gps_sync_pps_pin }}
+  register: config_dt_pps
+
+- name: Disable Bluetooth on Raspberry Pi 4
+  lineinfile:
+    path: /boot/config.txt
+    line: dtoverlay=disable-bt
+  register: config_dt_bt
+
+- name: Disable console on UART0
+  replace:
+    path: /boot/cmdline.txt
+    regexp: 'console=(serial0|ttyAMA0|ttyS0)(,\d+)?'
+    replace: ''
+  register: cmdline_uart
+
+- name: Trigger reboot if cmdline changed
+  meta: noop
+  changed_when: (config_dt_pps is changed or config_dt_bt is changed or cmdline_uart is changed) and ansible_connection != 'local'
+  notify: reboot
+
+- name: Trigger reboot if cmdline changed
+  meta: noop
+  changed_when: (config_dt_pps is changed or config_dt_bt is changed or cmdline_uart is changed) and ansible_connection == 'local'
+  notify: reboot_local
+

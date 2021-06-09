@@ -1,3 +1,6 @@
 ---
 - name: reboot
   reboot:
+
+- name: reboot_local
+  command: /usr/bin/systemctl reboot
