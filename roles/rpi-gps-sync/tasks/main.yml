@@ -20,5 +20,11 @@
     state: stopped
     enabled: false
 
+- name: Disable Systemd timesync daemon
+  systemd:
+    name: systemd-timesync
+    state: stopped
+    enabled: false
+
 - name: Reboot
   reboot: {}
