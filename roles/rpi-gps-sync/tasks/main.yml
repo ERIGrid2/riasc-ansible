@@ -1,7 +1,7 @@
 - name: Enable PPS-GPIO device tree overlay
   lineinfile:
     path: /boot/config.txt
-    line: dtoverlay=pps-gpio,gpiopin={{ pps_pin }}
+    line: dtoverlay=pps-gpio,gpiopin={{ rpi_gps_sync_pps_pin }}
 
 - name: Disable Bluetooth on Raspberry Pi 4
   lineinfile:
