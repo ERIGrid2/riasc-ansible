@@ -10,8 +10,8 @@
 
 - name: Disable console on UART0
   replace:
-    path: /boot/cmdline
-    regex: 'console=(serial0|ttyAMA0|ttyS0)(,\d+)?'
+    path: /boot/cmdline.txt
+    regexp: 'console=(serial0|ttyAMA0|ttyS0)(,\d+)?'
     replace: ''
 
 - name: Disable HCI UART
@@ -22,7 +22,7 @@
 
 - name: Disable Systemd timesync daemon
   systemd:
-    name: systemd-timesync
+    name: systemd-timesyncd
     state: stopped
     enabled: false
 
