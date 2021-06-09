@@ -2,17 +2,20 @@
   lineinfile:
     path: /boot/config.txt
     line: dtoverlay=pps-gpio,gpiopin={{ rpi_gps_sync_pps_pin }}
+  notify: reboot
 
 - name: Disable Bluetooth on Raspberry Pi 4
   lineinfile:
     path: /boot/config.txt
     line: dtoverlay=disable-bt
+  notify: reboot
 
 - name: Disable console on UART0
   replace:
     path: /boot/cmdline.txt
     regexp: 'console=(serial0|ttyAMA0|ttyS0)(,\d+)?'
     replace: ''
+  notify: reboot
 
 - name: Disable HCI UART
   systemd:
@@ -25,6 +28,3 @@
     name: systemd-timesyncd
     state: stopped
     enabled: false
-
-- name: Reboot
-  reboot: {}
