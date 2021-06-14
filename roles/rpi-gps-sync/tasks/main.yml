@@ -31,11 +31,11 @@
 
 - name: Trigger reboot if cmdline changed
   meta: noop
-  changed_when: (config_dt_pps is changed or config_dt_bt is changed or cmdline_uart is changed) and ansible_connection != 'local'
+  changed_when: (config_dt_pps.changed or config_dt_bt.changed or cmdline_uart.changed) and ansible_connection != 'local'
   notify: reboot
 
 - name: Trigger reboot if cmdline changed
   meta: noop
-  changed_when: (config_dt_pps is changed or config_dt_bt is changed or cmdline_uart is changed) and ansible_connection == 'local'
+  changed_when: (config_dt_pps.changed or config_dt_bt.changed or cmdline_uart.changed) and ansible_connection == 'local'
   notify: reboot_local
 

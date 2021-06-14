@@ -9,10 +9,10 @@
 
 - name: Trigger reboot if cmdline changed
   meta: noop
-  changed_when: cmdline_cgroup is changed and ansible_connection == 'local'
+  changed_when: cmdline_cgroup.changed and ansible_connection == 'local'
   notify: reboot_local
 
 - name: Trigger reboot if cmdline changed
   meta: noop
-  changed_when: cmdline_cgroup is changed and ansible_connection != 'local'
+  changed_when: cmdline_cgroup.changed and ansible_connection != 'local'
   notify: reboot
