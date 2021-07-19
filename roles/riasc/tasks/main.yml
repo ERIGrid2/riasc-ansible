@@ -14,4 +14,4 @@
         chart: riasc/riasc
         targetNamespace: riasc
         version: "0.1.0"
-        repo: https://charts.riasc.fein-aachen.org
+        repo: https://erigrid2.github.com/charts/
