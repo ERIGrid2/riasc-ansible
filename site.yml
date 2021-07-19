@@ -7,18 +7,14 @@
       user: "{{ ansible_user }}"
       state: present
       key: "{{ item }}"
-    loop: "{{ ssh_keys }}"
+    loop: "{{ ssh_keys + additional_ssh_keys | unique }}"
 
   - name: Disable password login
     lineinfile: 
       dest: /etc/ssh/sshd_config 
       regexp: '^(#\s*)?PasswordAuthentication '
       line: 'PasswordAuthentication no'
-
-  - name: Restart SSH daemon
-    service:
-      name: sshd
-      state: restarted
+    when: disable_password_login
 
 - hosts: k3s_cluster
   gather_facts: yes
