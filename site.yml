@@ -15,7 +15,7 @@
       regexp: '^(#\s*)?PasswordAuthentication '
       line: 'PasswordAuthentication no'
     when: disable_password_login
-
+  
 - hosts: k3s_cluster
   gather_facts: yes
   become: yes
@@ -36,7 +36,7 @@
   roles:
     - role: k3s/node
 
-# - hosts: master
-#   become: yes
-#   roles:
-#   - role: riasc
+- hosts: master
+  become: yes
+  roles:
+  - role: riasc
