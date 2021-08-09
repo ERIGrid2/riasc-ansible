@@ -4,6 +4,9 @@
     - raspberrypi-kernel
     - raspberrypi-kernel-headers
     state: latest
+  notify:
+  - reboot
+  - reboot_local
 
 - name: Add keys for backports repo
   apt_key:
@@ -23,11 +26,15 @@
     state: latest
     default_release: buster-backports
 
-- name: Load Wireguard module
-  modprobe:
-    name: wireguard
-
 - name: Load Wireguard module during system startup
   lineinfile:
     path: /etc/modules
     line: wireguard
+
+# Make sure we have booted to the latest kernel before loading the freshly build Wireguard module
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Load Wireguard module
+  modprobe:
+    name: wireguard
