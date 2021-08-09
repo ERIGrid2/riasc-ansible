@@ -5,14 +5,6 @@
     regexp: '^((?!.*\bcgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory\b).*)$'
     line: '\1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory'
     backrefs: true
-  register: cmdline_cgroup
-
-- name: Trigger reboot if cmdline changed
-  meta: noop
-  changed_when: cmdline_cgroup.changed and ansible_connection == 'local'
-  notify: reboot_local
-
-- name: Trigger reboot if cmdline changed
-  meta: noop
-  changed_when: cmdline_cgroup.changed and ansible_connection != 'local'
-  notify: reboot
+  notify:
+  - reboot
+  - reboot_local
