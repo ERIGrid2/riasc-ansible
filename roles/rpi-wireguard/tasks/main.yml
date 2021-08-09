@@ -1,11 +1,8 @@
-- name: Update packages
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Install build-time depenencies for Wireguard
   apt:
-    name: raspberrypi-kernel-headers
+    name:
+    - raspberrypi-kernel
+    - raspberrypi-kernel-headers
     state: latest
 
 - name: Add keys for backports repo
