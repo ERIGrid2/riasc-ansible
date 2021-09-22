@@ -1,3 +1,4 @@
+---
 - name: Disable HCI UART
   systemd:
     name: hciuart
@@ -34,5 +35,3 @@
   notify:
   - reboot
   - reboot_local
-
-

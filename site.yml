@@ -10,33 +10,33 @@
     loop: "{{ ssh_keys + additional_ssh_keys | unique }}"
 
   - name: Disable password login
-    lineinfile: 
-      dest: /etc/ssh/sshd_config 
+    lineinfile:
+      dest: /etc/ssh/sshd_config
       regexp: '^(#\s*)?PasswordAuthentication '
       line: 'PasswordAuthentication no'
     when: disable_password_login
-  
+
 - hosts: k3s_cluster
-  gather_facts: yes
-  become: yes
+  gather_facts: true
+  become: true
   roles:
-    - role: prereq
-    - role: download
-    - role: rpi
-    - role: rpi-wireguard
-    - role: rpi-gps-sync
+  - role: prereq
+  - role: download
+  - role: rpi
+  - role: rpi_wireguard
+  - role: rpi_gps_sync
 
 - hosts: master
-  become: yes
+  become: true
   roles:
-    - role: k3s/master
+  - role: k3s/master
 
-- hosts: node
-  become: yes
+- hosts: falsede
+  become: true
   roles:
-    - role: k3s/node
+  - role: k3s/node
 
 - hosts: master
-  become: yes
+  become: true
   roles:
   - role: riasc

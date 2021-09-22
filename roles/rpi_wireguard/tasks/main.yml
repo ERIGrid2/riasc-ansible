@@ -1,9 +1,10 @@
+---
 - name: Install build-time depenencies for Wireguard
   apt:
     name:
     - raspberrypi-kernel
     - raspberrypi-kernel-headers
-    state: latest
+    state: latest  # noqa package-latest
   notify:
   - reboot
   - reboot_local
@@ -23,7 +24,7 @@
 - name: Install Wireguard DKMS
   apt:
     name: wireguard
-    state: latest
+    state: present
     default_release: buster-backports
 
 - name: Load Wireguard module during system startup
