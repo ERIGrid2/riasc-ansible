@@ -31,7 +31,7 @@
   roles:
   - role: k3s/master
 
-- hosts: falsede
+- hosts: node
   become: true
   roles:
   - role: k3s/node

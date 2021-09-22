@@ -33,7 +33,7 @@
 - name: Read node-token from master
   slurp:
     src: /var/lib/rancher/k3s/server/node-token
-  register: falsede_token
+  register: node_token
 
 - name: Store Master node-token
   set_fact:
