@@ -1,9 +1,10 @@
 # RIasC Ansible Playbooks
 
 [![DOI](https://zenodo.org/badge/340038373.svg)](https://zenodo.org/badge/latestdoi/340038373)
+[![GitHub](https://img.shields.io/github/license/ERIGrid2/riasc-ansible)](https://github.com/riasc-ansible/blob/master/LICENSE)
+[![Lint](https://github.com/ERIGrid2/riasc-ansible/actions/workflows/lint.yml/badge.svg)](https://github.com/ERIGrid2/riasc-ansible/actions/workflows/lint.yml)
 
 - **Based on:** <https://github.com/k3s-io/k3s-ansible>
-- **Author:** <https://github.com/itwars>
 
 ## Introduction
 
@@ -78,3 +79,13 @@ To get access to your **Kubernetes** cluster just
 ```bash
 scp debian@master_ip:~/.kube/config ~/.kube/config
 ```
+
+## Credits
+
+- [Vincent Rabah](https://github.com/itwars)
+- [Steffen Vogel](https://github.com/stv0g) [📧](mailto:post@steffenvogel.de)
+
+### Funding acknowledment
+
+<img alt="European Flag" src="https://erigrid2.eu/wp-content/uploads/2020/03/europa_flag_low.jpg" align="left" style="margin-right: 10px"/> The development of [RIasC](https://riasc.eu) has been supported by the [ERIGrid 2.0](https://erigrid2.eu) project \
+of the H2020 Programme under [Grant Agreement No. 870620](https://cordis.europa.eu/project/id/870620)
