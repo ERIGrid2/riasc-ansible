@@ -1,6 +1,24 @@
-# Build a Kubernetes cluster using k3s via Ansible
+# RIasC Ansible Playbooks
 
-Author: <https://github.com/itwars>
+- **Based on:** <https://github.com/k3s-io/k3s-ansible>
+- **Author:** <https://github.com/itwars>
+
+## Introduction
+
+This repository container a set of Ansible roles and playbooks to provision [RIasC](https://riasc.eu) nodes.
+
+Specifically it contains roles for provisioning a [k3s](https://k3s.io) Kubernetes cluster on a fleet of Raspberry Pi nodes.
+In addition it prepares the nodes by installing the [Wireguard](https://wireguard.com) VPN kernel module and a devicetree overlay required for [GPS-based time-synchronization](https://riasc.eu/docs/usage/time-sync).
+At last it installs the [RIasC Helm chart](https://github.com/ERIGrid2/charts).
+
+These playbooks are usually used by the [`riasc-update.sh`](https://github.com/ERIGrid2/riasc-provisioning/blob/master/common/riasc-update.sh) script from the [riasc-provisioning](https://github.com/ERIGrid2/riasc-provisioning) repo.
+
+Currently, the repo also contains the Ansible inventory for the RIasC deployment used in the ERIGrid 2.0 project.
+However, it its planned to move this inventory to a separate repo.
+
+## Documentation
+
+For further documentation, please consult: https://riasc.eu/docs/
 
 ## K3s Ansible Playbook
 
