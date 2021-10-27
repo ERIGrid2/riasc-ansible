@@ -83,7 +83,7 @@ scp debian@master_ip:~/.kube/config ~/.kube/config
 ## Credits
 
 - [Vincent Rabah](https://github.com/itwars)
-- [Steffen Vogel](https://github.com/stv0g) [📧](mailto:post@steffenvogel.de)
+- [Steffen Vogel](https://github.com/stv0g) [📧](mailto:post@steffenvogel.de), [Institute for Automation of Complex Power Systems](https://www.acs.eonerc.rwth-aachen.de), [RWTH Aachen University](https://www.rwth-aachen.de)
 
 ### Funding acknowledment
 
