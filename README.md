@@ -1,5 +1,7 @@
 # RIasC Ansible Playbooks
 
+[![DOI](https://zenodo.org/badge/340038373.svg)](https://zenodo.org/badge/latestdoi/340038373)
+
 - **Based on:** <https://github.com/k3s-io/k3s-ansible>
 - **Author:** <https://github.com/itwars>
 
