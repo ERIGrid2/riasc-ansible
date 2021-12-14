@@ -7,7 +7,13 @@ After=network-online.target
 Type=notify
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
-ExecStart=/usr/local/bin/k3s agent --server {{ server }} --token {{ token | default(hostvars[groups['master'][0]]['token']) }} {{ extra_agent_args | default("") }}
+ExecStart=/usr/local/bin/k3s agent \
+  --server {{ server }} \
+  --token {{ token | default(hostvars[groups['master'][0]]['token']) }} \
+{% for label in labels %}
+  --node-label {{ item.key }}={{ item.value }} \
+{% endfor %}
+  {{ extra_agent_args | default("") }}
 KillMode=process
 Delegate=yes
 # Having non-zero Limit*s causes performance problems due to accounting overhead

@@ -9,6 +9,8 @@ server: "https://k3s.riasc.eu"
 
 token: ""
 
+labels: []
+
 extra_server_args: "--cluster-init --advertise-address={{ master_ip }} --advertise-port=443"
 extra_agent_args: ""
 
