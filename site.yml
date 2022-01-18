@@ -16,15 +16,22 @@
       line: 'PasswordAuthentication no'
     when: disable_password_login
 
-- hosts: k3s_cluster
+- hosts: cluster
+  become: true
+  roles:
+  - role: rpi/common  # sets facts for subsequent roles!
+  - role: rpi/gps_sync
+    when: raspberry_pi|default(false)
+
+  - role: wireguard
+
+# Install K3S
+- hosts: cluster
   gather_facts: true
   become: true
   roles:
-  - role: prereq
-  - role: download
-  - role: rpi
-  - role: rpi_wireguard
-  - role: rpi_gps_sync
+  - role: k3s/prereq
+  - role: k3s/download
 
 - hosts: master
   become: true

@@ -1,8 +1,0 @@
----
-- name: reboot
-  reboot:
-  when: ansible_connection != "local"
-
-- name: reboot_local
-  command: /usr/bin/systemctl reboot  # noqa command-instead-of-module
-  when: ansible_connection == "local"

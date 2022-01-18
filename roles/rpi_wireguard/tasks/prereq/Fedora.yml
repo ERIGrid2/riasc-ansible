@@ -1,5 +1,0 @@
----
-- name: Install Wireguard tools
-  dnf:
-    name: wireguard-tools
-    state: present

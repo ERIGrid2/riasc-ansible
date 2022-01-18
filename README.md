@@ -59,7 +59,7 @@ Second, edit `inventory/my-cluster/hosts.ini` to match the system information ga
 [node]
 192.16.35.[10:11]
 
-[k3s_cluster:children]
+[cluster:children]
 master
 node
 ```

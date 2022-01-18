@@ -1,0 +1,38 @@
+---
+
+- name: Disable HCI UART
+  systemd:
+    name: hciuart
+    state: stopped
+    enabled: false
+
+- name: Disable systemd-timesyncd
+  systemd:
+    name: systemd-timesyncd
+    state: stopped
+    enabled: false
+
+- name: Enable PPS-GPIO device tree overlay
+  lineinfile:
+    path: /boot/config.txt
+    line: dtoverlay=pps-gpio,gpiopin={{ rpi_gps_sync_pps_pin }}
+  notify:
+  - reboot
+  - reboot_local
+
+- name: Disable Bluetooth on Raspberry Pi 4
+  lineinfile:
+    path: /boot/config.txt
+    line: dtoverlay=disable-bt
+  notify:
+  - reboot
+  - reboot_local
+
+- name: Disable console on UART0
+  replace:
+    path: /boot/cmdline.txt
+    regexp: 'console=(serial0|ttyAMA0|ttyS0)(,\d+)?'
+    replace: ''
+  notify:
+  - reboot
+  - reboot_local
