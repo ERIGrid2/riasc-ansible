@@ -1,35 +1,13 @@
 ---
-- name: Install build-time depenencies for Wireguard
-  apt:
-    name:
-    - raspberrypi-kernel
-    - raspberrypi-kernel-headers
-    state: latest  # noqa package-latest
-  notify:
-  - reboot
-  - reboot_local
 
-- name: Add keys for backports repo
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: "{{ item }}"
-  loop:
-  - 04EE7237B7D453EC
-  - 648ACFD622F3D138
-  - 0E98404D386FA1D9
-
-- name: Add Debian backports repo
-  apt_repository:
-    repo: deb http://deb.debian.org/debian buster-backports main
-    state: present
-    filename: backports
-    update_cache: true
-
-- name: Install Wireguard DKMS
-  apt:
-    name: wireguard
-    state: present
-    default_release: buster-backports
+- name: Execute OS related tasks on the Raspberry Pi
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - "prereq/{{ detected_distribution }}-{{ detected_distribution_major_version }}.yml"
+    - "prereq/{{ detected_distribution }}.yml"
+    - "prereq/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "prereq/{{ ansible_distribution }}.yml"
+    - "prereq/default.yml"
 
 - name: Load Wireguard module during system startup
   lineinfile:
