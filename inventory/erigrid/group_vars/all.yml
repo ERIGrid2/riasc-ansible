@@ -11,8 +11,11 @@ token: ""
 
 labels: []
 
-extra_server_args: "--cluster-init --advertise-address={{ master_ip }} --advertise-port=443"
 extra_agent_args: ""
+extra_server_args: --cluster-init
+  --advertise-address={{ master_ip }}
+  --advertise-port=443
+  --kube-apiserver-arg enable-admission-plugins=PodNodeSelector"
 
 ssh_keys:
 # yamllint disable-line rule:line-length
